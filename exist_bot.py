@@ -36,7 +36,7 @@ layout.show_header("PDF, TXT")
 
 
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "OPENAI_API_KEY"
 
 uploaded_file = utils.handle_upload(["pdf", "txt", "csv"])
 
