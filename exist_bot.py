@@ -1,7 +1,9 @@
 import os
 import sys
 from io import StringIO
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
 import streamlit as st
 
 
@@ -46,9 +48,11 @@ if uploaded_file:
     # Initialize chat history
     history = ChatHistory()
     try:
+        st.write("Before setting up chatbot")
         chatbot = utils.setup_chatbot(
             uploaded_file
         )
+        st.write("After setting up chatbot")
         st.session_state["chatbot"] = chatbot
 
         if st.session_state["ready"]:
