@@ -36,7 +36,7 @@ layout, sidebar, utils = Layout(), Sidebar(), Utilities()
 
 layout.show_header("PDF, TXT")
 
-os.environ["OPENAI_API_KEY"] = "OPENAI_API_KEY"
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 uploaded_file = utils.handle_upload(["pdf", "txt", "csv"])
 
