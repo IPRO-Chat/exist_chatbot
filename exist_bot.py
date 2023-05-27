@@ -12,13 +12,15 @@ def reload_module(module_name):
     sys.path.append('modules')
     if module_name in sys.modules:
         importlib.reload(sys.modules[module_name])
+    else:
+        importlib.import_module(module_name)
     return sys.modules[module_name]
 
 
-history_module = reload_module('modules.history')
-layout_module = reload_module('modules.layout')
-utils_module = reload_module('modules.utils')
-sidebar_module = reload_module('modules.sidebar')
+history_module = reload_module('history')
+layout_module = reload_module('layout')
+utils_module = reload_module('utils')
+sidebar_module = reload_module('sidebar')
 
 ChatHistory = history_module.ChatHistory
 Layout = layout_module.Layout
