@@ -9,6 +9,7 @@ import streamlit as st
 def reload_module(module_name):
     import importlib
     import sys
+    sys.path.append('modules')
     if module_name in sys.modules:
         importlib.reload(sys.modules[module_name])
     return sys.modules[module_name]
