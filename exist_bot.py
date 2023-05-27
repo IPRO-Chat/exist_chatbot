@@ -1,20 +1,18 @@
 import os
-import streamlit as st
-from io import StringIO
-import re
 import sys
-from modules.history import ChatHistory
-from modules.layout import Layout
-from modules.utils import Utilities
-from modules.sidebar import Sidebar
+from io import StringIO
 
-#To be able to update the changes made to modules in localhost (press r)
+import streamlit as st
+
+
+# To be able to update the changes made to modules in localhost (press r)
 def reload_module(module_name):
     import importlib
     import sys
     if module_name in sys.modules:
         importlib.reload(sys.modules[module_name])
     return sys.modules[module_name]
+
 
 history_module = reload_module('modules.history')
 layout_module = reload_module('modules.layout')
@@ -32,9 +30,6 @@ st.set_page_config(layout="wide", page_icon="💬", page_title="IPRO-FileReader 
 layout, sidebar, utils = Layout(), Sidebar(), Utilities()
 
 layout.show_header("PDF, TXT")
-
-
-
 
 os.environ["OPENAI_API_KEY"] = "OPENAI_API_KEY"
 
@@ -93,5 +88,3 @@ if uploaded_file:
             history.generate_messages(response_container)
     except Exception as e:
         st.error(f"Error: {str(e)}")
-
-
