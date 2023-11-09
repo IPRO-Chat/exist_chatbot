@@ -3,12 +3,13 @@ import PyPDF2
 import openai
 import streamlit as st
 
+# Initialize the OpenAI client with the API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
+client = openai.Client()
+
 BASE_DIR = "Files"  # Set the base directory to "Files"
 
 def generate_response(user_input):
-    # Retrieve the OpenAI API key
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-
     # GPT-3 and other parameters
     model_engine = "gpt-3.5-turbo-16k"
     temperature = 0.2
@@ -41,7 +42,7 @@ def generate_response(user_input):
     pdf_file_name = predict_intent_with_gpt(user_input)
     pdf_content = get_pdf_content(pdf_file_name)
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model=model_engine,
         messages=[
             {"role": "system",
@@ -49,6 +50,7 @@ def generate_response(user_input):
                                            question=user_input)},
             {"role": "user", "content": user_input},
         ],
+        temperature=temperature,
     )
 
     # Add the generated answer to the conversation history
@@ -57,7 +59,6 @@ def generate_response(user_input):
     )
 
     return response.choices[0].message.content.strip()
-
 
 def get_pdf_content(file_path):
     file_path = file_path.strip("'")
@@ -71,14 +72,13 @@ def get_pdf_content(file_path):
     pdf_file_obj.close()
     return text_content
 
-
 def predict_intent_with_gpt(question):
     valid_intents = ["Contact", "Transport", "Main", "Stipendium", "Studiengänge", "Hochschule-Grunddaten",
                      "Promovieren", "Person"]
-    max_attempts = 2
+    max_attempts = 1
     attempts = 0
     while attempts < max_attempts:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system",
@@ -88,7 +88,9 @@ def predict_intent_with_gpt(question):
                 {"role": "user", "content": question},
             ]
         )
+
         predicted_intent = response.choices[0].message.content.strip()
+
         if predicted_intent in valid_intents:
             pdf_file_path = os.path.join(BASE_DIR, predicted_intent, predicted_intent + ".pdf")
             return pdf_file_path
@@ -103,26 +105,36 @@ st.info(
     "reliable. In case of uncertainties or important inquiries, we recommend contacting the responsible office "
     "directly.")
 
-# Initialize chat history in session state
+# Initialize chat history in session state if it doesn't exist
 if 'messages' not in st.session_state:
     st.session_state.messages = []
-
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
 
 # React to user input
 user_input = st.chat_input("Frage Hier：")
 if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user"):
-        st.markdown(user_input)
-    response = generate_response(user_input)
-    with st.chat_message("assistant"):
-        st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    # Check if the user input was already processed
+    if ('last_input' not in st.session_state or
+            st.session_state.last_input != user_input):
+        # Store the current user input to prevent processing it again
+        st.session_state.last_input = user_input
+
+        # Add user input to the session state
+        st.session_state.messages.append({"role": "user", "content": user_input})
+
+        # Generate a response
+        response = generate_response(user_input)
+
+        # Display chat messages from history
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+
+        # Add the assistant's response to the session state
+        st.session_state.messages.append({"role": "assistant", "content": response})
 
 # Add a button to clear chat history
 if st.button("Clear Chat History"):
+    # Clear chat history and last input to reset the chat
     st.session_state.messages = []
+    if 'last_input' in st.session_state:
+        del st.session_state.last_input
