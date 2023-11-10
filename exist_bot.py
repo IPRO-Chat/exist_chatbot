@@ -169,9 +169,6 @@ if user_input:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
 
-        # Add the assistant's response to the session state
-        st.session_state.messages.append({"role": "assistant", "content": response})
-
 # Add a button to clear chat history
 if st.button("Clear Chat History"):
     # Clear chat history and last input to reset the chat
