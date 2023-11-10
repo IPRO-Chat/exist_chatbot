@@ -4,6 +4,9 @@ import openai
 import streamlit as st
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
+example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
+                     "Wie soll ich meinen Semesterbeitrag bezahlen?"]
+
 
 # Function to set the background color for areas not covered by the image
 def set_background_color(color):
@@ -15,6 +18,7 @@ def set_background_color(color):
     </style>
     """, unsafe_allow_html=True)
 
+
 # Initialize the OpenAI client with the API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 client = openai.Client()
@@ -24,6 +28,7 @@ client = openai.Client()
 
 
 BASE_DIR = "Files"  # Set the base directory to "Files"
+
 
 def generate_response(user_input):
     # GPT-3 and other parameters
@@ -76,6 +81,7 @@ def generate_response(user_input):
 
     return response.choices[0].message.content.strip()
 
+
 def get_pdf_content(file_path):
     file_path = file_path.strip("'")
     pdf_file_obj = open(file_path, 'rb')
@@ -87,6 +93,7 @@ def get_pdf_content(file_path):
         text_content += page_obj.extract_text()
     pdf_file_obj.close()
     return text_content
+
 
 def predict_intent_with_gpt(question):
     valid_intents = ["Contact", "Transport", "Main", "Stipendium", "Studiengänge", "Hochschule-Grunddaten",
@@ -114,16 +121,34 @@ def predict_intent_with_gpt(question):
     return os.path.join(BASE_DIR, "Main", "Main.pdf")
 
 
+# Initialize chat history in session state if it doesn't exist
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
+
+
+def handle_example_question(question):
+    # Add user input to the session state
+    st.session_state.messages.append({"role": "user", "content": question})
+
+    # Generate a response
+    generate_response(question)
+
 # Streamlit part of the code
 st.title("IPRO-Demo")
+cols = st.columns(3)
+for i, example_question in enumerate(example_questions):
+    with cols[i]:
+        if st.button(example_question, key=f"example_question_{i}"):
+            handle_example_question(example_question)
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
 st.info(
     "Please note: The responses provided by this chatbot are based on AI and may not always be 100% accurate or "
     "reliable. In case of uncertainties or important inquiries, we recommend contacting the responsible office "
     "directly.")
-
-# Initialize chat history in session state if it doesn't exist
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
 
 # React to user input
 user_input = st.chat_input("Frage Hier：")
