@@ -145,10 +145,6 @@ st.info(
     "reliable. In case of uncertainties or important inquiries, we recommend contacting the responsible office "
     "directly.")
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
 # React to user input
 user_input = st.chat_input("Frage Hier：")
 if user_input:
@@ -164,10 +160,10 @@ if user_input:
         # Generate a response
         response = generate_response(user_input)
 
-        # Display chat messages from history
-        for message in st.session_state.messages:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+# Display the chat history
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 # Add a button to clear chat history
 if st.button("Clear Chat History"):
