@@ -140,15 +140,14 @@ for i, example_question in enumerate(example_questions):
     with cols[i]:
         if st.button(example_question, key=f"example_question_{i}"):
             handle_example_question(example_question)
-
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
 st.info(
     "Please note: The responses provided by this chatbot are based on AI and may not always be 100% accurate or "
     "reliable. In case of uncertainties or important inquiries, we recommend contacting the responsible office "
     "directly.")
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 # React to user input
 user_input = st.chat_input("Frage Hier：")
