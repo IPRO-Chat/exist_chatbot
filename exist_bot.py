@@ -3,9 +3,25 @@ import PyPDF2
 import openai
 import streamlit as st
 
+st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
+
+# Function to set the background color for areas not covered by the image
+def set_background_color(color):
+    st.markdown(f"""
+    <style>
+    .stApp {{
+        background-color: {color};
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
 # Initialize the OpenAI client with the API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 client = openai.Client()
+
+# This Func is Not Available Now
+# set_background_color("#9CC4CC")
+
 
 BASE_DIR = "Files"  # Set the base directory to "Files"
 
