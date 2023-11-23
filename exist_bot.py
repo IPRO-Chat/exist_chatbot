@@ -97,33 +97,36 @@ def get_pdf_content(file_path):
 
 
 def predict_intent_with_gpt(question):
-    # Use the updated valid_intents list
-    max_attempts = 1
-    attempts = 0
-    while attempts < max_attempts:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system",
-                 "content": "Predict the intent of the question. The answer must be one of the following: " +
-                            ", ".join(valid_intents) + "."},
-                {"role": "user", "content": question},
-            ]
-        )
+    # Read valid intents from the file
+    valid_intents = read_valid_intents("valid_intents.txt")
 
-        predicted_intent = response.choices[0].message.content.strip()
+    # Prepare the prompt for the GPT model
+    prompt = ("Predict the intent of the question. The answer must be one of the following: " +
+              ", ".join(valid_intents) + ".\nQuestion: " + question + "\nIntent:")
 
-        if predicted_intent in valid_intents:
-            # Adjust the path to match the required format
-            pdf_file_path = os.path.join("Files", predicted_intent, predicted_intent + ".pdf")
-            if os.path.exists(pdf_file_path):
-                return pdf_file_path
-            else:
-                print(f"File not found: {pdf_file_path}")
-                break  # Exit the loop if file is not found
-        attempts += 1
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": question},
+        ]
+    )
 
-    # Default to a general PDF if the specific one is not found
+    predicted_intent = response.choices[0].message.content.strip()
+
+    # Print the predicted intent
+    print(f"Predicted Intent: {predicted_intent}")
+
+    if predicted_intent in valid_intents:
+        pdf_file_path = os.path.join("Files", predicted_intent, predicted_intent + ".pdf")
+        if os.path.exists(pdf_file_path):
+            return pdf_file_path
+        else:
+            print(f"File not found: {pdf_file_path}")
+    else:
+        print("Predicted intent not in valid intents.")
+
+    # Default to a general PDF if the specific one is not found or intent is not valid
     return os.path.join("Files", "Main", "Main.pdf")
 
 

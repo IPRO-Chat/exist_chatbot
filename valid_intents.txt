@@ -1,5 +1,4 @@
 Contact
-Transport
 Main
 Stipendium
 Studiengänge
@@ -7,3 +6,6 @@ Hochschule-Grunddaten
 Promovieren
 Person
 Formular-Download
+Semesterbetrag und Rückmeldung
+CampusCard
+Beurlaubung
