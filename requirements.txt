@@ -13,3 +13,4 @@ PyPDF2==3.0.1
 IPython==8.18.1
 beautifulsoup4==4.12.2
 lxml==4.9.3
+streamlit-option-menu

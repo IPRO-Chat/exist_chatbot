@@ -2,11 +2,35 @@ import os
 import PyPDF2
 import openai
 import streamlit as st
+from streamlit_option_menu import option_menu
 import re
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
 example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
                      "Wie soll ich Semesterbeitrag bezahlen?"]
+
+# selected2 = option_menu(None, ["Home", "Upload", "Tasks", 'Settings'],
+#     icons=['house', 'cloud-upload', "list-task", 'gear'],
+#     menu_icon="cast", default_index=0, orientation="horizontal")
+# selected2
+
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
+html_code = """
+    <div style="position: relative; center: 100px; left: 0px; z-index: 9999;display: flex; align-items: center; background-color: #CCE1E9; ">
+        <img src="https://www.hs-emden-leer.de/typo3conf/ext/fr_sitepackage_hs_emden_leer/Resources/Public/Images/logo-header-normal.svg" alt="Logo" height="50px">
+        <span style="margin-left: 10px; font-size: 30px; color: black;">  ·  IPRO-Chat</span>
+    </div>
+"""
+
+
+st.markdown(html_code, unsafe_allow_html=True)
 
 
 def add_bg_from_url():
@@ -51,6 +75,10 @@ def set_button_style():
             .stButton > button:hover {
                 color: white;
                 background-color: #9CC4CC;  
+            }
+            .stButton > button:active {
+                color: #3E5565;  /* 按钮被按下时的文字颜色 */
+                background-color: #9CC4CC;  /* 按钮被按下时的背景颜色，可根据需要调整 */
             }
         </style>
         """
