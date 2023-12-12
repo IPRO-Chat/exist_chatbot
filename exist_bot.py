@@ -6,8 +6,25 @@ import re
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
 example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
-                     "Wie soll ich meinen Semesterbeitrag bezahlen?"]
+                     "Wie soll ich Semesterbeitrag bezahlen?"]
 
+
+def add_bg_from_url():
+    st.markdown(
+        f"""
+         <style>
+         .stApp {{
+             background-color: #CCE1E9;
+             background-attachment: fixed;
+             background-size: cover;
+         }}
+         </style>
+         """,
+        unsafe_allow_html=True
+    )
+
+
+add_bg_from_url()
 
 # Function to set the background color for areas not covered by the image
 def set_background_color(color):
@@ -20,6 +37,27 @@ def set_background_color(color):
     """, unsafe_allow_html=True)
 
 
+def set_button_style():
+    button_style = """
+        <style>
+            .stButton > button {
+                color: white;  
+                background-color: #3E5565; 
+                border: none;  
+                padding: 10px 20px; 
+                border-radius: 50px; 
+                font-size: 16px;  
+            }
+            .stButton > button:hover {
+                color: white;
+                background-color: #9CC4CC;  
+            }
+        </style>
+        """
+    st.markdown(button_style, unsafe_allow_html=True)
+
+
+set_button_style()
 # Initialize the OpenAI client with the API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 client = openai.Client()
@@ -134,10 +172,12 @@ def predict_intent_with_gpt(question):
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
+
 def read_valid_intents(file_name):
     with open(file_name, 'r') as file:
         lines = file.read().splitlines()
     return [line.strip() for line in lines if line.strip()]
+
 
 valid_intents_file = "valid_intents.txt"  # Assuming this is the name of your text file
 valid_intents = read_valid_intents(valid_intents_file)
@@ -150,8 +190,9 @@ def handle_example_question(question):
     # Generate a response
     generate_response(question)
 
+
 # Streamlit part of the code
-st.title("IPRO-Demo")
+# st.title("IPRO-Demo")
 cols = st.columns(3)
 for i, example_question in enumerate(example_questions):
     with cols[i]:
@@ -164,6 +205,7 @@ st.info(
 
 # React to user input
 user_input = st.chat_input("Frage Hier：")
+
 if user_input:
     # Check if the user input was already processed
     if ('last_input' not in st.session_state or
