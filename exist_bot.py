@@ -8,14 +8,14 @@ import re
 base="light"
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
-example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
-                     "Wie soll ich Semesterbeitrag bezahlen?"]
+example_questions = ["Wie kann ich einen Raum finden?", "Wie kann ich den Professor kontaktieren?",
+                     "Wie bezahle ich den Semesterbeitrag?"]
 
 st.markdown(
     """
     <style>
         .stChatFloatingInputContainer {
-            bottom: 20px;
+            bottom: -50px;
             background-color: rgba(0, 0, 0, 0)
         }
     </style>
@@ -46,7 +46,7 @@ html_code = """
 
 st.markdown(html_code, unsafe_allow_html=True)
 
-def add_bg_from_url():
+def add_bg():
     st.markdown(
         f"""
          <style>
@@ -60,14 +60,14 @@ def add_bg_from_url():
         unsafe_allow_html=True
     )
 
+add_bg()
+
 def set_info_style():
     style = """
         <style>
-            /* 修改 st.info 组件的样式 */
             .stAlert {
-                background-color: #74A8CC;  
+                background-color: #9CC4CC;  
                 border-radius: 15px;  
-                color: #000000 !important;  
             }
         </style>
         """
@@ -76,7 +76,6 @@ def set_info_style():
 # 应用自定义样式
 set_info_style()
 
-add_bg_from_url()
 
 # Function to set the background color for areas not covered by the image
 def set_background_color(color):
@@ -94,10 +93,10 @@ def set_button_style():
         <style>
             .stButton > button {
                 color: white;  
-                background-color: #3E5565; 
+                background-color: #003B5F; 
                 border: none;  
                 padding: 10px 20px; 
-                border-radius: 50px; 
+                border-radius: 30px; 
                 font-size: 16px;  
             }
             .stButton > button:hover {
@@ -105,8 +104,8 @@ def set_button_style():
                 background-color: #9CC4CC;  
             }
             .stButton > button:active {
-                color: #3E5565;  /* 按钮被按下时的文字颜色 */
-                background-color: #9CC4CC;  /* 按钮被按下时的背景颜色，可根据需要调整 */
+                color: #3E5565;  
+                background-color: #9CC4CC;  、
             }
         </style>
         """
@@ -114,6 +113,25 @@ def set_button_style():
 
 
 set_button_style()
+
+#Not Working
+def set_chat_message_style():
+    style = """
+        <style>
+            .chat-message.user:before {
+                content: '';
+                background-image: url('User.jpeg');  /* user icon */
+            }
+            .chat-message.bot:before {
+                content: '';
+                background-image: url('Bot.jpeg');  /* Chatbot icon */
+            }
+        </style>
+        """
+    st.markdown(style, unsafe_allow_html=True)
+
+# 应用自定义样式
+set_chat_message_style()
 
 # Initialize the OpenAI client with the API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -245,7 +263,7 @@ def handle_example_question(question):
 
 
 # Streamlit part of the code
-# st.title("IPRO-Demo")
+# st.write(" Question? ")
 cols = st.columns(3)
 for i, example_question in enumerate(example_questions):
     with cols[i]:
