@@ -5,6 +5,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import re
 
+base="light"
+
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
 example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
                      "Wie soll ich Semesterbeitrag bezahlen?"]
