@@ -11,6 +11,17 @@ st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout=
 example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
                      "Wie soll ich Semesterbeitrag bezahlen?"]
 
+st.markdown(
+    """
+    <style>
+        .stChatFloatingInputContainer {
+            bottom: 20px;
+            background-color: rgba(0, 0, 0, 0)
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # selected2 = option_menu(None, ["Home", "Upload", "Tasks", 'Settings'],
 #     icons=['house', 'cloud-upload', "list-task", 'gear'],
@@ -49,6 +60,21 @@ def add_bg_from_url():
         unsafe_allow_html=True
     )
 
+def set_info_style():
+    style = """
+        <style>
+            /* 修改 st.info 组件的样式 */
+            .stAlert {
+                background-color: #74A8CC;  
+                border-radius: 15px;  
+                color: #000000 !important;  
+            }
+        </style>
+        """
+    st.markdown(style, unsafe_allow_html=True)
+
+# 应用自定义样式
+set_info_style()
 
 add_bg_from_url()
 
@@ -226,9 +252,9 @@ for i, example_question in enumerate(example_questions):
         if st.button(example_question, key=f"example_question_{i}"):
             handle_example_question(example_question)
 st.info(
-    "Please note: The responses provided by this chatbot are based on AI and may not always be 100% accurate or "
-    "reliable. In case of uncertainties or important inquiries, we recommend contacting the responsible office "
-    "directly.")
+    "Die Antworten basieren auf AI und sind möglicherweise nicht zu "
+    "100 % korrekt. Bei Fragen oder wichtigen Problemen wenden Sie sich bitte direkt an Student Service Center"
+    "oder Prüfungsamt.")
 
 # React to user input
 user_input = st.chat_input("Frage Hier：")
