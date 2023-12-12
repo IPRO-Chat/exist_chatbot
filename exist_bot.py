@@ -9,6 +9,7 @@ st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout=
 example_questions = ["Wie soll ich den Standort des Zimmers finden?", "Wie soll ich den Professor kontaktieren?",
                      "Wie soll ich Semesterbeitrag bezahlen?"]
 
+
 # selected2 = option_menu(None, ["Home", "Upload", "Tasks", 'Settings'],
 #     icons=['house', 'cloud-upload', "list-task", 'gear'],
 #     menu_icon="cast", default_index=0, orientation="horizontal")
@@ -31,7 +32,6 @@ html_code = """
 
 
 st.markdown(html_code, unsafe_allow_html=True)
-
 
 def add_bg_from_url():
     st.markdown(
@@ -86,13 +86,10 @@ def set_button_style():
 
 
 set_button_style()
+
 # Initialize the OpenAI client with the API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 client = openai.Client()
-
-# This Func is Not Available Now
-# set_background_color("#9CC4CC")
-
 
 BASE_DIR = os.getcwd()  # Set the base directory to "Files"
 
