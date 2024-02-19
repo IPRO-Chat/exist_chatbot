@@ -43,7 +43,6 @@ html_code = """
     </div>
 """
 
-
 st.markdown(html_code, unsafe_allow_html=True)
 
 def add_bg():
@@ -75,7 +74,6 @@ def set_info_style():
 
 # 应用自定义样式
 set_info_style()
-
 
 # Function to set the background color for areas not covered by the image
 def set_background_color(color):
