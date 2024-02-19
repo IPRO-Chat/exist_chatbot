@@ -5,7 +5,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import re
 
-base="light"
+base = "light"
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
 example_questions = ["Wie kann ich einen Raum finden?", "Wie kann ich den Professor kontaktieren?",
@@ -45,6 +45,7 @@ html_code = """
 
 st.markdown(html_code, unsafe_allow_html=True)
 
+
 def add_bg():
     st.markdown(
         f"""
@@ -59,7 +60,9 @@ def add_bg():
         unsafe_allow_html=True
     )
 
+
 add_bg()
+
 
 def set_info_style():
     style = """
@@ -72,8 +75,10 @@ def set_info_style():
         """
     st.markdown(style, unsafe_allow_html=True)
 
+
 # 应用自定义样式
 set_info_style()
+
 
 # Function to set the background color for areas not covered by the image
 def set_background_color(color):
@@ -112,7 +117,8 @@ def set_button_style():
 
 set_button_style()
 
-#Not Working
+
+# Not Working
 def set_chat_message_style():
     style = """
         <style>
@@ -127,6 +133,7 @@ def set_chat_message_style():
         </style>
         """
     st.markdown(style, unsafe_allow_html=True)
+
 
 # 应用自定义样式
 set_chat_message_style()
