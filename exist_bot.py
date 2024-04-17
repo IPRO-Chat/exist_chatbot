@@ -2,14 +2,23 @@ import os
 import PyPDF2
 import openai
 import streamlit as st
-from streamlit_option_menu import option_menu
-import re
+import random
+import hashlib
 
 base = "light"
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
-example_questions = ["Wie kann ich einen Raum finden?", "Wie kann ich den Professor kontaktieren?",
-                     "Wie bezahle ich den Semesterbeitrag?"]
+all_example_questions = [
+    "Wie kann ich einen Raum finden?",
+    "Wie kann ich den Professor kontaktieren?",
+    "Wie bezahle ich den Semesterbeitrag?",
+    "Wo finde ich Informationen zu Prüfungsterminen?",
+    "Wie kann ich mich für Kurse anmelden?",
+    "Was sind die Bibliotheksöffnungszeiten?",
+    "Wo finde ich Studienberatung?",
+    "Wie stelle ich einen BAföG-Antrag?",
+    "Wie funktioniert das WLAN auf dem Campus?"
+]
 
 st.markdown(
     """
@@ -45,6 +54,11 @@ html_code = """
 
 st.markdown(html_code, unsafe_allow_html=True)
 
+
+def generate_key(question, index):
+    """ Generate a unique key for each button based on the question text. """
+    hash_object = hashlib.md5(question.encode())
+    return hash_object.hexdigest() + str(index)
 
 def add_bg():
     st.markdown(
@@ -269,11 +283,16 @@ def handle_example_question(question):
 
 # Streamlit part of the code
 # st.write(" Question? ")
+# Randomly select three unique questions
+if 'displayed_questions' not in st.session_state:
+    st.session_state.displayed_questions = random.sample(all_example_questions, 3)
+
 cols = st.columns(3)
-for i, example_question in enumerate(example_questions):
+for i, example_question in enumerate(st.session_state.displayed_questions):
     with cols[i]:
         if st.button(example_question, key=f"example_question_{i}"):
             handle_example_question(example_question)
+
 st.info(
     "Die Antworten basieren auf AI und sind möglicherweise nicht zu "
     "100 % korrekt. Bei Fragen oder wichtigen Problemen wenden Sie sich bitte direkt an Student Service Center"
