@@ -149,7 +149,7 @@ def set_chat_message_style():
     st.markdown(style, unsafe_allow_html=True)
 
 
-# 应用自定义样式
+# Set Style
 set_chat_message_style()
 
 # Initialize the OpenAI client with the API key
