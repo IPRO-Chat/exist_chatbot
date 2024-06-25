@@ -1,10 +1,8 @@
-Contact
 Main
 Stipendium
 Studiengänge
 Hochschule-Grunddaten
 Promovieren
-Person
 Formulare and Documents Downloads
 Payment Info and Semesterbetrag und Rückmeldung
 CampusCard
@@ -21,3 +19,6 @@ Praxisphase
 Personal Information
 Immatrikulations- und Prüfungsamt_Kontakt
 Onlinedienste für Studierende
+WLAN WiFi und EDUROAM
+Raum finden
+Staff finden
