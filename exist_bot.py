@@ -295,8 +295,8 @@ for i, example_question in enumerate(st.session_state.displayed_questions):
 
 st.info(
     "Die Antworten basieren auf AI und sind möglicherweise nicht zu "
-    "100 % korrekt. Bei Fragen oder wichtigen Problemen wenden Sie sich bitte direkt an Student Service Center"
-    "oder Prüfungsamt.")
+    "100 % korrekt. Bei Fragen oder wichtigen Problemen wenden Sie sich bitte direkt an Studierenden Service Center"
+    " oder Immatrikulations- und Prüfungsamt.")
 
 # React to user input
 user_input = st.chat_input("Frage Hier：")

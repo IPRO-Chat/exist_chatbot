@@ -14,7 +14,7 @@ Exmatrikulation
 Gasthörer und innen
 Exam and results
 Documents
-Abschlussarbeit
+Bachelor und Masterarbeit
 Praxisphase
 Personal Information
 Immatrikulations- und Prüfungsamt_Kontakt
@@ -23,3 +23,5 @@ WLAN WiFi und EDUROAM
 Raum finden
 Staff finden
 Semesterticket Upgrade
+Rentenbescheinigung
+Immatrikulationsunterlagen
