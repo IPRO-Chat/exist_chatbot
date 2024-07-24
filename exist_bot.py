@@ -160,8 +160,8 @@ BASE_DIR = os.getcwd()  # Set the base directory to "Files"
 
 
 def generate_response(user_input):
-    # GPT-3 and other parameters
-    model_engine = "gpt-3.5-turbo-16k"
+    # GPT-4o-mini
+    model_engine = "gpt-4o-mini"
     temperature = 0.2
     qa_template = """
     Answer in the language of the question. If you're unsure or don't know the answer, respond with "Ich weiß es nicht,
