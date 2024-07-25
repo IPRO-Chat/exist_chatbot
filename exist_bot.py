@@ -13,7 +13,6 @@ all_example_questions = [
     "Wie kann ich den Professor kontaktieren?",
     "Wie bezahle ich den Semesterbeitrag?",
     "Wo finde ich Informationen zu Prüfungsterminen?",
-    "Wie kann ich mich für Kurse anmelden?",
     "Was sind die Bibliotheksöffnungszeiten?",
     "Wo finde ich Studienberatung?",
     "Wie stelle ich einen BAföG-Antrag?",
