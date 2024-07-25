@@ -7,7 +7,7 @@ requests==2.32.3
 num2words==0.5.13
 matplotlib==3.9.0
 plotly==5.22.0
-scipy==1.14.0
+scipy==1.13.1
 scikit-learn==1.5.1
 PyPDF2==3.0.1
 beautifulsoup4==4.12.3
