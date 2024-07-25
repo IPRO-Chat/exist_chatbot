@@ -9,14 +9,12 @@ base = "light"
 
 st.set_page_config(page_title="IPRO-Chatbot", page_icon="IPRO-CHAT.png", layout="wide")
 all_example_questions = [
-    "Wie kann ich einen Raum finden?",
-    "Wie kann ich den Professor kontaktieren?",
-    "Wie bezahle ich den Semesterbeitrag?",
-    "Wo finde ich Informationen zu Prüfungsterminen?",
-    "Was sind die Bibliotheksöffnungszeiten?",
-    "Wo finde ich Studienberatung?",
-    "Wie stelle ich einen BAföG-Antrag?",
-    "Wie funktioniert das WLAN auf dem Campus?"
+    "Ich habe meine CampusCard verloren",
+    "Wie bekomme ich meine Immatrikulationsunterlagen? ",
+    "Was muss ich bei einer Namensänderung tun?",
+    "Wo und wie erhalte ich eine Immatrikulationsbescheinigung? ",
+    "Wie beantrage ich eine Exmatrikulation? ",
+    "Kann ich meinen Studiengang innerhalb der Hochschule wechseln?"
 ]
 
 st.markdown(
@@ -232,7 +230,7 @@ def predict_intent_with_gpt(question):
               ", ".join(valid_intents) + ".\nQuestion: " + question + "\nIntent:")
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": prompt},
             {"role": "user", "content": question},
